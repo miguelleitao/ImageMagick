@@ -240,9 +240,9 @@ static Image *ReadRGBImage(const ImageInfo *image_info,ExceptionInfo *exception)
           ssize_t
             x;
 
-          if (count != (ssize_t) length)
+            if (count != (ssize_t) length)
             {
-              status=MagickFalse;
+              if (scene==0) status=MagickFalse;
               ThrowFileException(exception,CorruptImageError,
                 "UnexpectedEndOfFile",image->filename);
               break;
@@ -286,9 +286,9 @@ static Image *ReadRGBImage(const ImageInfo *image_info,ExceptionInfo *exception)
                 break;
             }
           stream=ReadBlobStream(image,length,pixels,&count);
-        }
+        }  // for y
         break;
-      }
+      }  // default
       case LineInterlace:
       {
         static QuantumType
